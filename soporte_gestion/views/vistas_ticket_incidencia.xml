@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Vista Kanban -->
+    <record id="view_ticket_incidencia_kanban" model="ir.ui.view">
+      <field name="name">ticket.incidencia.kanban</field>
+      <field name="model">ticket.incidencia</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="state">
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_card o_kanban_record #{record.state.raw_value}"
+                   style="display: flex; flex-direction: column; min-height: 200px; position: relative; padding: 10px;">
+                <div class="o_kanban_record_top" style="text-align: center;">
+                  <div class="o_kanban_image_container" style="margin: auto;">
+                    <field name="image" widget="image" options="{'size': (120, 120)}"/>
+                  </div>
+                  <strong style="display: block; margin-top: 5px;"><field name="name"/></strong>
+                </div>
+                <div class="o_kanban_record_body" style="flex: 1; margin-top: 8px;">
+                  <div><i class="fa fa-user"/> <field name="partner_id"/></div>
+                  <div><i class="fa fa-wrench"/> <field name="technician_id"/></div>
+                  <div><i class="fa fa-cogs"/> <field name="equipo_afectado"/></div>
+                  <div style="margin-top: 5px; font-weight: 500;">
+                    <i class="fa fa-calendar-plus-o"/> <field name="event_start"/>
+                    &#160;&#8212;&#160;
+                    <i class="fa fa-calendar-check-o"/> <field name="event_stop"/>
+                  </div>
+                </div>
+                <div class="o_kanban_state"
+                     t-attf-style="width: 100%; display: flex; align-items: center; padding: 8px; background: #f0f0f0; border-top: 2px solid #ccc; font-size: 13px; color: {{ record.state.raw_value == 'done' and '#2ecc71' or record.state.raw_value == 'cancelled' and '#e74c3c' or record.state.raw_value == 'in_progress' and '#3498db' or '#555' }};">
+                  <span style="font-weight: bold; margin-right: 8px;">Estado de la incidencia:</span>
+                  <field name="state" string="Estado" widget="statusbar"/>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- Vista de árbol -->
+    <record id="view_ticket_incidencia_tree" model="ir.ui.view">
+      <field name="name">ticket.incidencia.tree</field>
+      <field name="model">ticket.incidencia</field>
+      <field name="arch" type="xml">
+        <tree string="Incidencias" decoration-danger="state=='cancelled'">
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="technician_id"/>
+          <field name="equipo_afectado"/>
+          <field name="state" widget="statusbar" string="Estado"/>
+          <field name="event_start"/>
+          <field name="event_stop"/>
+          <field name="image_small" widget="image" options="{'size': (30, 30)}"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_ticket_incidencia_form" model="ir.ui.view">
+      <field name="name">ticket.incidencia.form</field>
+      <field name="model">ticket.incidencia</field>
+      <field name="arch" type="xml">
+        <form string="Ticket de Incidencia">
+          <header>
+            <field name="state" string="Estado" widget="statusbar" statusbar_visible="draft,assigned,in_progress,done,cancelled"/>
+            <field name="image_small" widget="image" options="{'size': (32, 32)}" class="oe_avatar"/>
+            <button name="action_start" type="object" string="Iniciar" states="assigned" class="btn-info"/>
+            <button name="action_done" type="object" string="Completar" states="assigned,in_progress" class="btn-success"/>
+            <button name="action_cancel" type="object" string="Cancelar" states="draft,assigned,in_progress" class="btn-warning"/>
+            <button name="action_generate_invoice" type="object" string="Generar Factura" class="btn-secondary"/>
+            <button name="%(calendar.action_calendar_event)d" type="action" icon="fa-calendar" string="Ver Evento" states="assigned,in_progress,done"/>
+          </header>
+          <sheet>
+            <group>
+              <group col="2">
+                <field name="name" readonly="1"/>
+                <field name="user_id" readonly="1"/>
+                <field name="partner_id"/>
+                <field name="technician_id"/>
+                <field name="equipo_afectado"/>
+                <field name="state" string="Estado" widget="selection" options="{'no_create': True}"/>
+              </group>
+            </group>
+            <group string="Productos / Servicios">
+              <field name="product_ids" widget="many2many_tags" domain="[('sale_ok','=',True)]" context="{'default_sale_ok': True}"/>
+            </group>
+            <notebook>
+              <page string="Descripción">
+                <field name="descripcion" colspan="2"/>
+              </page>
+              <page string="Fechas">
+                <group col="2">
+                  <field name="event_start" readonly="1"/>
+                  <field name="event_stop" readonly="1"/>
+                </group>
+              </page>
+              <page string="Foto de Incidencia">
+                <group>
+                  <field name="image" widget="image" options="{'preview_image': 'image_medium', 'size': (80, 80)}"/>
+                </group>
+              </page>
+              <page string="Historial">
+                <field name="historial_ids" widget="one2many_list" context="{'default_incidencia_id': active_id}">
+                  <tree editable="bottom">
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="notes"/>
+                  </tree>
+                  <form>
+                    <group>
+                      <field name="date" readonly="1"/>
+                      <field name="user_id" readonly="1"/>
+                      <field name="notes"/>
+                    </group>
+                  </form>
+                </field>
+              </page>
+              <page string="Chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Vista de calendario -->
+    <record id="view_ticket_incidencia_calendar" model="ir.ui.view">
+      <field name="name">ticket.incidencia.calendar</field>
+      <field name="model">ticket.incidencia</field>
+      <field name="arch" type="xml">
+        <calendar
+          string="Calendario de Incidencias"
+          date_start="event_start"
+          date_stop="event_stop"
+          color="state"
+          mode="week">
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="technician_id"/>
+          <field name="equipo_afectado"/>
+          <field name="state" string="Estado"/>
+        </calendar>
+      </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_ticket_incidencia" model="ir.actions.act_window">
+      <field name="name">Tickets de Incidencia</field>
+      <field name="res_model">ticket.incidencia</field>
+      <field name="view_mode">kanban,tree,form,calendar</field>
+      <field name="views" eval="[ 
+        (ref('view_ticket_incidencia_kanban'),'kanban'), 
+        (ref('view_ticket_incidencia_tree'),'tree'), 
+        (ref('view_ticket_incidencia_form'),'form'), 
+        (ref('view_ticket_incidencia_calendar'),'calendar') 
+      ]"/>
+      <field name="context">{'calendar_view_type': 'week'}</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="menu_ticket_gestion_root" name="Soporte" sequence="30"/>
+    <menuitem id="menu_ticket_incidencia" parent="menu_ticket_gestion_root" action="action_ticket_incidencia" name="Tickets de Incidencia" sequence="10"/>
+
+  </data>
+</odoo>

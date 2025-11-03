@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- (Opcional) Heredamos también el tree si quieres personalizar columnas -->
+    <record id="view_tecnico_tree" model="ir.ui.view">
+        <field name="name">hr.employee.tree.tecnico</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Técnicos">
+                    <field name="name" string="Nombre"/>
+                    <field name="work_email" string="Correo de Trabajo"/>
+                    <field name="job_id" string="Puesto"/>
+                    <field name="department_id" string="Departamento"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Herencia de la vista de formulario de empleado -->
+    <record id="view_tecnico_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.tecnico</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Tickets">
+                    <field name="ticket_ids" widget="one2many_list">
+                        <tree editable="bottom">
+                            <field name="name" string="Resumen"/>
+                            <field name="partner_id" string="Cliente"/>
+                            <field name="state" string="Estado"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Acción, la mantenemos -->
+    <record id="soporte_gestion.action_tecnico" model="ir.actions.act_window">
+        <field name="name">Técnicos</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Gestiona los técnicos, que son empleados del sistema.</p>
+        </field>
+    </record>
+</odoo>

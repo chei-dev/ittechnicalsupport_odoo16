@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ticket_incidencia,ticket.incidencia,model_ticket_incidencia,base.group_user,1,1,1,1
+access_cita_visita_soporte,cita.visita.soporte,model_cita_visita_soporte,base.group_user,1,1,1,1
+access_evaluacion,evaluacion,model_evaluacion,base.group_user,1,1,1,1
+access_soporte_contrato,soporte.contrato,model_soporte_contrato,base.group_user,1,1,1,1
+access_ticket_historial,ticket.historial,model_ticket_historial,base.group_user,1,1,1,1
+access_soporte_tecnico_employee,access_soporte_tecnico_employee,hr.model_hr_employee,base.group_user,1,1,1,1

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista de búsqueda (opcional) -->
+    <record id="view_cita_visita_soporte_search" model="ir.ui.view">
+        <field name="name">cita.visita.soporte.search</field>
+        <field name="model">cita.visita.soporte</field>
+        <field name="arch" type="xml">
+            <search string="Programador de citas">
+                <field name="incidencia_id"/>
+                <field name="technician_id"/>
+                <filter name="today" string="Hoy"
+                        domain="[('date','=',context_today())]"/>
+                <filter name="scheduled" string="Programadas"
+                        domain="[('state','=','scheduled')]"/>
+                <filter name="done" string="Realizadas"
+                        domain="[('state','=','done')]"/>
+                <filter name="cancelled" string="Canceladas"
+                        domain="[('state','=','cancelled')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista de árbol -->
+    <record id="view_cita_visita_soporte_tree" model="ir.ui.view">
+        <field name="name">cita.visita.soporte.tree</field>
+        <field name="model">cita.visita.soporte</field>
+        <field name="arch" type="xml">
+            <tree string="Programador de citas">
+                <field name="incidencia_id"/>
+                <field name="date" widget="date"/>
+                <field name="technician_id"/>
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,scheduled,done,cancelled"/>
+                <field name="event_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista calendario -->
+    <record id="view_cita_visita_soporte_calendar" model="ir.ui.view">
+        <field name="name">cita.visita.soporte.calendar</field>
+        <field name="model">cita.visita.soporte</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendario Citas Visita"
+                      date_start="date"
+                      color="state">
+                <field name="incidencia_id"/>
+                <field name="technician_id"/>
+                <field name="state"/>
+                <field name="description"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Vista formulario -->
+    <record id="view_cita_visita_soporte_form" model="ir.ui.view">
+        <field name="name">cita.visita.soporte.form</field>
+        <field name="model">cita.visita.soporte</field>
+        <field name="arch" type="xml">
+            <form string="Programador de citas">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,scheduled,done,cancelled"/>
+                    <button name="action_schedule" type="object"
+                            states="draft" string="Programar"
+                            class="btn-primary"/>
+                    <button name="action_cancel" type="object"
+                            states="draft,scheduled" string="Cancelar"
+                            class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="incidencia_id" options="{'no_create': True}"/>
+                        <field name="technician_id"/>
+                        <field name="date" widget="datetime"
+                               options="{'show_timezone': True}"/>
+                        <field name="description"/>
+                        <field name="event_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,scheduled,done,cancelled"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_done" type="object" string="Marcar como realizada" class="oe_success" attrs="{'invisible': [('state', '!=', 'scheduled')]}"/>
+                    <button name="action_cancel" type="object" string="Cancelar cita" class="oe_error" attrs="{'invisible': [('state', '==', 'cancelled')]}"/>
+                    <button string="Cerrar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

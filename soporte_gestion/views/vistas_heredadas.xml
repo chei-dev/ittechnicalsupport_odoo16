@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- account.move: agregar campo ticket_id -->
+    <record id="view_account_move_tree_inherit_ticket" model="ir.ui.view">
+      <field name="name">account.move.tree.inherit.ticket</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//tree/field[@name='partner_id']" position="after">
+          <field name="ticket_id"/>
+        </xpath>
+      </field>
+    </record>
+   
+    <!-- calendar.event: agregar campo cita_visita_id -->
+    <record id="view_calendar_event_form_inherit_cita" model="ir.ui.view">
+      <field name="name">calendar.event.form.inherit.cita</field>
+      <field name="model">calendar.event</field>
+      <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='allday']" position="after">
+          <field name="cita_visita_id"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Menú raíz -->
+    <menuitem
+        id="menu_soporte_root"
+        name="Soporte Técnico"
+        sequence="1"
+        web_icon="soporte_gestion,static/description/icon.png"
+        action="soporte_gestion.action_ticket_incidencia" />
+
+         <!-- -> Añadimos aquí tu menú de Técnicos <- -->
+    <menuitem
+      id="menu_tecnico"
+      name="Técnicos"
+      parent="menu_soporte_root"
+      action="soporte_gestion.action_tecnico"
+      sequence="3"/>
+
+    <!-- Menú Incidencias -->
+    <menuitem 
+        id="menu_ticket_incidencia"
+        name="Tickets de Incidencia"
+        parent="menu_soporte_root"
+        sequence="2"
+        action="soporte_gestion.action_ticket_incidencia"/>
+
+    <!-- Menú Satisfacción -->
+    <menuitem
+        id="menu_evaluacion"
+        name="Feedback"
+        parent="menu_soporte_root"
+        action="soporte_gestion.action_evaluacion"
+        sequence="7"/>
+
+    <!-- Menú Citas de Visita -->
+    <menuitem
+        id="menu_cita_visita_soporte"
+        name="Programador de citas"
+        parent="menu_soporte_root"
+        action="soporte_gestion.action_cita_visita_soporte"
+        sequence="6"/>
+        
+    <!-- Menú Calendario -->
+    <menuitem id="menu_ticket_incidencia_calendar"
+              name="Calendario"
+              parent="menu_soporte_root"
+              sequence="30"
+              action="soporte_gestion.action_ticket_incidencia_calendar"/>
+
+
+</odoo>

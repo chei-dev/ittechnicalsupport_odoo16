@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Añade la pestaña Facturación al menú raíz de Soporte Técnico -->
+  <menuitem
+      id="menu_facturacion"
+      name="Facturación"
+      parent="menu_soporte_root"
+      action="account.action_move_out_invoice_type"
+      sequence="30"
+  />
+</odoo>

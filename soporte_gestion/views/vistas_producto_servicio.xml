@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Vista árbol -->
+    <record id="view_producto_servicio_tree" model="ir.ui.view">
+      <field name="name">product.template.tree.servicio</field>
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+        <tree string="Productos/Servicios">
+          <field name="name"/>
+          <field name="is_service"/>
+          <field name="list_price"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Vista formulario -->
+    <record id="view_producto_servicio_form" model="ir.ui.view">
+      <field name="name">product.template.form.servicio</field>
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+        <form string="Producto o Servicio">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="is_service"/>
+              <field name="list_price"/>
+              <field name="image_1920"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Vista Kanban -->
+    <record id="view_producto_servicio_kanban" model="ir.ui.view">
+      <field name="name">product.template.kanban.servicio</field>
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_small_column">
+          <field name="name"/>
+          <field name="is_service"/>
+          <field name="list_price"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card">
+                <strong><field name="name"/></strong><br/>
+                <span t-if="record.is_service.raw_value">Servicio</span>
+                <span t-if="!record.is_service.raw_value">Producto</span><br/>
+                <span><field name="list_price"/> €</span>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_producto_servicio_kanban" model="ir.actions.act_window">
+      <field name="name">Productos / Servicios</field>
+      <field name="res_model">product.template</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Crea un nuevo producto o servicio
+        </p>
+      </field>
+    </record>
+
+    <!-- Menú Catálogo dentro de Soporte IT -->
+    <menuitem 
+      id="menu_producto_servicio_root" 
+      name="Catálogo" 
+      parent="menu_soporte_root" 
+      sequence="3"/>
+
+    <!-- Submenú que lanza la acción -->
+    <menuitem 
+      id="menu_producto_servicio_kanban"
+      name="Productos / Servicios"
+      parent="menu_producto_servicio_root"
+      action="action_producto_servicio_kanban"
+      sequence="3"/>
+
+  </data>
+</odoo>

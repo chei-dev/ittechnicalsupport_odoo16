@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Secuencia -->
+    <record id="seq_soporte_contrato" model="ir.sequence">
+        <field name="name">Contrato Soporte IT</field>
+        <field name="code">soporte.contrato</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <!-- Tree view: Suscripciones de Soporte -->
+    <record id="view_soporte_contrato_tree" model="ir.ui.view">
+        <field name="name">soporte.contrato.tree</field>
+        <field name="model">soporte.contrato</field>
+        <field name="arch" type="xml">
+            <tree string="Suscripciones de Soporte">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="periodo"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+                <field name="active"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view: Suscripción de Soporte IT -->
+    <record id="view_soporte_contrato_form" model="ir.ui.view">
+        <field name="name">soporte.contrato.form</field>
+        <field name="model">soporte.contrato</field>
+        <field name="arch" type="xml">
+            <form string="Suscripción de Soporte IT">
+                <header>
+                    <button name="action_confirm" type="object" string="Activar"
+                            states="draft" class="btn-primary"/>
+                    <button name="action_cancel" type="object" string="Desactivar"
+                            states="open" class="btn-secondary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,expired,cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="partner_id"/>
+                            <field name="periodo"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="duration_days" readonly="1"/>
+                            <field name="amount"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Historial">
+                            <field name="message_ids" widget="mail_thread"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban view: Suscripciones agrupadas por estado -->
+    <record id="view_soporte_contrato_kanban" model="ir.ui.view">
+        <field name="name">soporte.contrato.kanban</field>
+        <field name="model">soporte.contrato</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_example">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="periodo"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="amount"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card o_sutica">
+                            <div class="o_kanban_header">
+                                <strong><field name="name"/></strong>
+                                <field name="state" widget="statusbar"/>
+                            </div>
+                            <div>
+                                <span class="fa fa-user"/><field name="partner_id"/>
+                                <br/>
+                                <span class="fa fa-clock-o"/><field name="periodo"/>
+                            </div>
+                            <div class="o_kanban_footer">
+                                <span class="fa fa-calendar"/> <field name="start_date"/> - <field name="end_date"/>
+                                <br/>
+                                <strong><field name="amount"/> €</strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Calendar view: Calendario de Suscripciones -->
+    <record id="view_soporte_contrato_calendar" model="ir.ui.view">
+        <field name="name">soporte.contrato.calendar</field>
+        <field name="model">soporte.contrato</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendario de Suscripciones"
+                      date_start="start_date"
+                      date_stop="end_date"
+                      color="state">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_all_contracts" model="ir.actions.act_window">
+        <field name="name">Todas Suscripciones</field>
+        <field name="res_model">soporte.contrato</field>
+        <field name="view_mode">tree,kanban,calendar,form</field>
+        <!-- Mostrar todas las suscripciones (activas e inactivas) -->
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+    <record id="action_active_contracts" model="ir.actions.act_window">
+        <field name="name">Suscripciones Activas</field>
+        <field name="res_model">soporte.contrato</field>
+        <field name="view_mode">tree,kanban,calendar,form</field>
+        <field name="domain">[('state','=','open'),('active','=',True)]</field>
+    </record>
+
+    <record id="action_inactive_contracts" model="ir.actions.act_window">
+        <field name="name">Suscripciones Inactivas</field>
+        <field name="res_model">soporte.contrato</field>
+        <field name="view_mode">tree,kanban,calendar,form</field>
+        <field name="domain">[('active','=',False)]</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_soporte_root" name="Soporte IT" sequence="10"/>
+    <menuitem id="menu_subscriptions" name="Suscripciones"
+              parent="menu_soporte_root" sequence="20"/>
+    <menuitem id="menu_all_subs" name="Todas"
+              parent="menu_subscriptions" action="action_all_contracts" sequence="10"/>
+    <menuitem id="menu_active_subs" name="Activas"
+              parent="menu_subscriptions" action="action_active_contracts" sequence="20"/>
+    <menuitem id="menu_inactive_subs" name="Inactivas"
+              parent="menu_subscriptions" action="action_inactive_contracts" sequence="30"/>
+
+</odoo>

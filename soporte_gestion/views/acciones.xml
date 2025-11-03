@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    
+    <!-- Acción principal (ahora ya puede referenciar todas las vistas) -->
+    <record id="action_ticket_incidencia" model="ir.actions.act_window">
+      <field name="name">Tickets de Incidencia</field>
+      <field name="res_model">ticket.incidencia</field>
+      <field name="view_mode">kanban,tree,form,calendar</field>
+      <field name="views" eval="[
+        (ref('view_ticket_incidencia_kanban'),   'kanban'),
+        (ref('view_ticket_incidencia_tree'),     'tree'),
+        (ref('view_ticket_incidencia_form'),     'form'),
+        (ref('view_ticket_incidencia_calendar'), 'calendar')
+      ]"/>
+      <field name="context">{'calendar_view_type':'week'}</field>
+    </record>
+
+    <!-- Acción para Evaluación de Satisfacción -->
+    <record id="action_evaluacion" model="ir.actions.act_window">
+        <field name="name">Feedback</field>
+        <field name="res_model">evaluacion</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción para Citas de Visita -->
+    <record id="action_cita_visita_soporte" model="ir.actions.act_window">
+        <field name="name">Programador de citas</field>
+        <field name="res_model">cita.visita.soporte</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_ticket_incidencia_calendar" model="ir.actions.act_window">
+        <field name="name">Calendario de Tickets</field>
+        <field name="res_model">ticket.incidencia</field>
+        <!-- Incluye también tree y form -->
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="view_id" ref="soporte_gestion.view_ticket_incidencia_calendar"/>
+        <!-- Contexto explícito para el tipo de calendario -->
+        <field name="context">{'calendar_view_type': 'week'}</field>
+    </record>
+
+</odoo>
