@@ -48,7 +48,6 @@ José Luis Ruiz Verdugo
 📧 jlruizverdugo@outlook.es
 © 2025 José Luis Ruiz Verdugo. All rights reserved.
 
-🖼️ Screenshot
 
 Note: Unauthorized reproduction, distribution, or modification of this module is strictly prohibited without prior written permission from the author.
 
@@ -104,8 +103,6 @@ Este módulo está licenciado bajo AGPL-3 (Licencia Pública General Affero GNU 
 José Luis Ruiz Verdugo
 📧 jlruizverdugo@outlook.es
 © 2025 José Luis Ruiz Verdugo. Todos los derechos reservados.
-
-🖼️ Captura
 
 Nota: Queda prohibida cualquier reproducción, distribución o modificación sin autorización escrita del autor.
 Diseñado para Odoo versión 16.0.
