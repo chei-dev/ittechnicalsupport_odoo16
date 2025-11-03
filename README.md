@@ -38,7 +38,7 @@ Copiar código
 ./odoo-bin -u soporte_gestion
 Activate developer mode in Odoo.
 
-Go to Apps, update the app list, and install Soporte Técnico.
+Go to Apps, update the app list, and install Gestión de Soporte.
 
 📋 License
 This module is licensed under the AGPL-3 (GNU Affero General Public License v3).
@@ -94,7 +94,7 @@ Copiar código
 ./odoo-bin -u soporte_gestion
 Activa el modo desarrollador en Odoo.
 
-Ve a Aplicaciones, actualiza la lista y luego instala Soporte Técnico.
+Ve a Aplicaciones, actualiza la lista y luego instala Gestión de Soporte.
 
 📋 Licencia
 Este módulo está licenciado bajo AGPL-3 (Licencia Pública General Affero GNU v3).
