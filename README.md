@@ -43,6 +43,14 @@ Go to Apps, update the app list, and install Gestión de Soporte.
 📋 License
 This module is licensed under the AGPL-3 (GNU Affero General Public License v3).
 
+Screenshots
+
+<img width="816" height="355" alt="Captura de pantalla 2025-11-03 095122" src="https://github.com/user-attachments/assets/6ba268ef-8aca-438d-88db-476c5c31afe2" />
+<img width="3799" height="1586" alt="Captura de pantalla 2025-11-03 095139" src="https://github.com/user-attachments/assets/92d02553-21cc-40e2-a0d0-1193b23f9c96" />
+<img width="3825" height="1749" alt="Captura de pantalla 2025-11-03 095150" src="https://github.com/user-attachments/assets/5205483b-6ede-4692-a52f-1ae73202b3fd" />
+<img width="3778" height="1172" alt="Captura de pantalla 2025-11-03 095216" src="https://github.com/user-attachments/assets/cb14f46f-702b-4dd5-bce8-fc3ba59ccdb9" />
+
+
 👤 Author
 José Luis Ruiz Verdugo
 📧 jlruizverdugo@outlook.es
@@ -98,6 +106,13 @@ Ve a Aplicaciones, actualiza la lista y luego instala Gestión de Soporte.
 
 📋 Licencia
 Este módulo está licenciado bajo AGPL-3 (Licencia Pública General Affero GNU v3).
+
+Capturas
+
+<img width="816" height="355" alt="Captura de pantalla 2025-11-03 095122" src="https://github.com/user-attachments/assets/6ba268ef-8aca-438d-88db-476c5c31afe2" />
+<img width="3799" height="1586" alt="Captura de pantalla 2025-11-03 095139" src="https://github.com/user-attachments/assets/92d02553-21cc-40e2-a0d0-1193b23f9c96" />
+<img width="3825" height="1749" alt="Captura de pantalla 2025-11-03 095150" src="https://github.com/user-attachments/assets/5205483b-6ede-4692-a52f-1ae73202b3fd" />
+<img width="3778" height="1172" alt="Captura de pantalla 2025-11-03 095216" src="https://github.com/user-attachments/assets/cb14f46f-702b-4dd5-bce8-fc3ba59ccdb9" />
 
 👤 Autor
 José Luis Ruiz Verdugo
